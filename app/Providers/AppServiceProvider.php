@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Filament\Forms\Components\Field;
 use Illuminate\Support\ServiceProvider;
+use Filament\Forms\Components\Actions\Action;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        Field::macro("tooltip", function(string $tooltip) {
+            return $this->hintAction(
+                Action::make('help')
+                    ->icon('heroicon-o-question-mark-circle')
+                    ->extraAttributes(["class" => "text-gray-500"])
+                    ->label("")
+                    ->tooltip($tooltip)
+            );
+        });
     }
 
     /**
