@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id()->startingValue(2000);
-            $table->char('country_code');
+            $table->foreignId('country_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->timestamps();    
         });
