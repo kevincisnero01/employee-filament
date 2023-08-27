@@ -21,6 +21,8 @@ class CountryResource extends Resource
 {
     protected static ?string $model = Country::class;
 
+    protected static ?string $navigationGroup = 'Settings';
+
     protected static ?string $navigationIcon = 'heroicon-o-map';
 
     protected static ?string $navigationLabel = 'Paises';
