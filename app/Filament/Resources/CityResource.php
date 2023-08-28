@@ -2,54 +2,63 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CityResource\Pages;
+use App\Filament\Resources\CityResource\RelationManagers;
+use App\Models\City;
+use App\Models\State;
 use Filament\Forms;
-use Filament\Tables;
-use App\Models\Country;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CountryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CountryResource\RelationManagers;
+use Illuminate\Contracts\Support\Htmlable;
 
-class CountryResource extends Resource
+
+class CityResource extends Resource
 {
-    protected static ?string $model = Country::class;
+    protected static ?string $model = City::class;
 
-    protected static ?string $navigationLabel = 'Paises';
+    protected static ?string $slug = 'ciudades';
 
-    protected static ?int  $navigationSort = 1;
+    protected static ?string $label = 'Ciudades';
+
+    protected static ?string $navigationLabel = 'Ciudades';
+
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationGroup  = 'Ajustes';
 
-    protected static ?string $navigationIcon = 'heroicon-o-map';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
-    protected static ?string $activeNavigationIcon = 'heroicon-s-map';
+    protected static ?string $activeNavigationIcon = 'heroicon-s-map-pin';
+
+
 
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
 
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Crear Pais')
+                Section::make('Crear Ciudad')
                 ->schema([
-                    TextInput::make('country_code')
-                        ->label('Codigo del Pais')                    
-                        ->placeholder('Ejemplo: VEN')
-                        ->required(),
-                    TextInput::make('name')
-                        ->label('Nombre del Pais')
-                        ->placeholder('Ejemplo: VENEZUELA')
-                        ->autocapitalize()
+                    Select::make('state_id')
+                        ->label('Estado')
+                        ->options(State::pluck('name','id'))
+                        ->searchable()
+                        ->required()
+                    ,TextInput::make('name')
+                        ->label('Nombre')
                         ->required()
                 ])
             ]);
@@ -63,22 +72,23 @@ class CountryResource extends Resource
                     ->label('ID')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
-                ,TextColumn::make('country_code')
-                    ->label('CÓDIGO')
+                ,TextColumn::make('state.name')
+                    ->label('ESTADOS')
                     ->sortable()
                     ->searchable()
-                    ->toggleable()
+                    ->toggleable()    
                 ,TextColumn::make('name')
                     ->label('NOMBRE')
                     ->sortable()
+                    ->toggleable()
                     ->searchable()
-                    ->wrap()
                 ,TextColumn::make('created_at')
                     ->label('FECHA DE CREACIÓN')
                     ->date('d/m/Y')
                     ->toggleable(isToggledHiddenByDefault: true)
             ])
             ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -103,9 +113,9 @@ class CountryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCountries::route('/'),
-            'create' => Pages\CreateCountry::route('/create'),
-            'edit' => Pages\EditCountry::route('/{record}/edit'),
+            'index' => Pages\ListCities::route('/'),
+            'create' => Pages\CreateCity::route('/create'),
+            'edit' => Pages\EditCity::route('/{record}/edit'),
         ];
     }    
 }

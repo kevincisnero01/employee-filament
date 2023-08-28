@@ -2,56 +2,45 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
+use App\Filament\Resources\StateResource\Pages;
+use App\Filament\Resources\StateResource\RelationManagers;
 use App\Models\Country;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Tables\Filters\Filter;
+use App\Models\State;
+use Filament\Forms;
 use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CountryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CountryResource\RelationManagers;
 
-class CountryResource extends Resource
+class StateResource extends Resource
 {
-    protected static ?string $model = Country::class;
+    protected static ?string $model = State::class;
 
-    protected static ?string $navigationLabel = 'Paises';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?int  $navigationSort = 1;
-
-    protected static ?string $navigationGroup  = 'Ajustes';
-
-    protected static ?string $navigationIcon = 'heroicon-o-map';
-
-    protected static ?string $activeNavigationIcon = 'heroicon-s-map';
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
+    protected static ?string $navigationLabel = 'Estados';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Crear Pais')
-                ->schema([
-                    TextInput::make('country_code')
-                        ->label('Codigo del Pais')                    
-                        ->placeholder('Ejemplo: VEN')
-                        ->required(),
-                    TextInput::make('name')
-                        ->label('Nombre del Pais')
-                        ->placeholder('Ejemplo: VENEZUELA')
-                        ->autocapitalize()
-                        ->required()
-                ])
+                Section::make('Crear Estado')
+                    ->schema([
+                        Select::make('country_id')
+                            ->label('Paises')
+                            ->options(Country::pluck('name','id'))
+                            ->searchable()
+                            ->required()
+                        ,TextInput::make('name')
+                            ->label('Nombre')
+                            ->required()
+                    ])
             ]);
     }
 
@@ -63,8 +52,8 @@ class CountryResource extends Resource
                     ->label('ID')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
-                ,TextColumn::make('country_code')
-                    ->label('CÓDIGO')
+                ,TextColumn::make('country.name')
+                    ->label('PAIS')
                     ->sortable()
                     ->searchable()
                     ->toggleable()
@@ -72,13 +61,13 @@ class CountryResource extends Resource
                     ->label('NOMBRE')
                     ->sortable()
                     ->searchable()
-                    ->wrap()
                 ,TextColumn::make('created_at')
                     ->label('FECHA DE CREACIÓN')
                     ->date('d/m/Y')
                     ->toggleable(isToggledHiddenByDefault: true)
             ])
             ->filters([
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -103,9 +92,9 @@ class CountryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCountries::route('/'),
-            'create' => Pages\CreateCountry::route('/create'),
-            'edit' => Pages\EditCountry::route('/{record}/edit'),
+            'index' => Pages\ListStates::route('/'),
+            'create' => Pages\CreateState::route('/create'),
+            'edit' => Pages\EditState::route('/{record}/edit'),
         ];
     }    
 }

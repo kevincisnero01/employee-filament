@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\State;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
@@ -29,25 +30,29 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            //Configuraciones de Autenticacion
+            //==========Configuraciones de Autenticacion==========
             ->login()
             ->registration()
-            ->profile()
-            // Coniguraciones de Marca
-            ->colors([
+            ->profile() //mostrar la edicion del perfil
+            ->userMenuItems([ //editar el menu derecho de usuarios
+                'profile' => MenuItem::make()->label('Perfil'),
+                'logout' => MenuItem::make()->label('Cerrar Sesión'),
+            ])
+            
+            //==========Coniguraciones de Marca==========
+            ->colors([ 
                 'primary' => '#F1613F',
                 'secondary' => '#0A060E',
             ])
-            ->font('Poppins')
-            ->favicon(asset('images/favicon.png'))
-            //Configuraciones de Navegacion
-            ->path('')
-            ->sidebarCollapsibleOnDesktop()
-            ->breadcrumbs(false)
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->font('Poppins') // Cambiar fuente de letras
+            ->favicon(asset('images/favicon.png')) //Agregar icono favicon
+            //==========Configuraciones de Navegacion==========
+            ->path('') //Configurar el alias para navegar
+            ->sidebarCollapsibleOnDesktop() // Plegar barra lateral en pantallas web
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources') //genera navegaciones de recursos automaticamente
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages') //genera navegaciones de paginas automaticamente
             ->pages([
-                Pages\Dashboard::class,
+                Pages\Dashboard::class, 
             ])
             //Otras Configuraciones
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
