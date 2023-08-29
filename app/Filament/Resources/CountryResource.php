@@ -29,8 +29,6 @@ class CountryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
 
-    protected static ?string $activeNavigationIcon = 'heroicon-s-map';
-
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

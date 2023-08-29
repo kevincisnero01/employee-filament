@@ -22,9 +22,22 @@ class StateResource extends Resource
 {
     protected static ?string $model = State::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $slug = 'estados';
+
+    protected static ?string $label = 'Estados';
 
     protected static ?string $navigationLabel = 'Estados';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $navigationGroup  = 'Ajustes';
+
+    protected static ?string $navigationIcon = 'heroicon-s-map';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
