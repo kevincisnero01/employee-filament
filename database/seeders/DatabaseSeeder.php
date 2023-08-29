@@ -17,9 +17,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'developer@gmail.com',
         ]);
 
-        \App\Models\Country::factory(15)->create();
+        \App\Models\Country::factory(12)->create();
 
-        \App\Models\State::factory(15)->create();
-        
+        \App\Models\State::factory(12)->create();
+
+        \App\Models\City::factory(12)->create();
+
+        \App\Models\Department::factory(12)->create();
+
+        \App\Models\Employee::factory(12)->create();
+
     }
 }

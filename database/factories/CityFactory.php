@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Country;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\State>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\City>
  */
-class StateFactory extends Factory
+class CityFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class StateFactory extends Factory
     public function definition(): array
     {
         return [
-            'country_id' => Country::all()->random()->id,
-            'name' => fake()->state(),
+            'state_id' => State::all()->random()->id,
+            'name' => fake()->city()
         ];
     }
 }
