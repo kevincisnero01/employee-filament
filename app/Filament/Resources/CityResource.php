@@ -30,14 +30,13 @@ class CityResource extends Resource
 
     protected static ?string $navigationLabel = 'Ciudades';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationGroup  = 'Ajustes';
 
-    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     protected static ?string $activeNavigationIcon = 'heroicon-s-map-pin';
-
 
 
     public static function getNavigationBadge(): ?string

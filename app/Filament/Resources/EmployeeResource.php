@@ -42,11 +42,11 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationLabel = 'Empleados';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?string $navigationGroup  = 'Administración';
 
-    protected static ?string $navigationGroup  = 'Ajustes';
+    protected static ?int $navigationSort = 1;
 
-    protected static ?string $navigationIcon = 'heroicon-s-user';
+    protected static ?string $navigationIcon = 'heroicon-s-identification';
 
     public static function getNavigationBadge(): ?string
     {

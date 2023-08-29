@@ -2,17 +2,19 @@
 
 namespace App\Providers\Filament;
 
-use App\Models\State;
 use Filament\Pages;
 use Filament\Panel;
+use App\Models\State;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\NavigationItem;
+use App\Filament\Resources\UserResource;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
+use Filament\Navigation\NavigationBuilder;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -47,7 +49,12 @@ class AdminPanelProvider extends PanelProvider
             ->font('Poppins') // Cambiar fuente de letras
             ->favicon(asset('images/favicon.png')) //Agregar icono favicon
             //==========Configuraciones de Navegacion==========
-            ->path('') //Configurar el alias para navegar
+            ->path('') 
+            ->navigationGroups([
+                'Administración',
+                'Ajustes',
+                'Usuarios y Permisos',
+            ])
             ->sidebarCollapsibleOnDesktop() // Plegar barra lateral en pantallas web
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources') //genera navegaciones de recursos automaticamente
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages') //genera navegaciones de paginas automaticamente

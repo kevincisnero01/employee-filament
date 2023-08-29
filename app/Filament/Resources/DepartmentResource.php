@@ -27,11 +27,11 @@ class DepartmentResource extends Resource
 
     protected static ?string $navigationLabel = 'Departamentos';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?string $navigationGroup  = 'Administración';
 
-    protected static ?string $navigationGroup  = 'Ajustes';
+    protected static ?int $navigationSort = 2;
 
-    protected static ?string $navigationIcon = 'heroicon-s-paper-clip';
+    protected static ?string $navigationIcon = 'heroicon-s-inbox-stack';
 
     public static function getNavigationBadge(): ?string
     {

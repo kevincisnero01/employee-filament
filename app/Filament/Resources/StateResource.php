@@ -28,11 +28,11 @@ class StateResource extends Resource
 
     protected static ?string $navigationLabel = 'Estados';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationGroup  = 'Ajustes';
 
-    protected static ?string $navigationIcon = 'heroicon-s-map';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
     public static function getNavigationBadge(): ?string
     {
