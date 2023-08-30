@@ -26,6 +26,8 @@ class StateResource extends Resource
 
     protected static ?string $label = 'Estados';
 
+    protected static ?string $title = 'Estados';
+
     protected static ?string $navigationLabel = 'Estados';
 
     protected static ?int $navigationSort = 3;
@@ -65,15 +67,15 @@ class StateResource extends Resource
                     ->label('ID')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
+                ,TextColumn::make('name')
+                    ->label('NOMBRE')
+                    ->sortable()
+                    ->searchable()
                 ,TextColumn::make('country.name')
                     ->label('PAIS')
                     ->sortable()
                     ->searchable()
                     ->toggleable()
-                ,TextColumn::make('name')
-                    ->label('NOMBRE')
-                    ->sortable()
-                    ->searchable()
                 ,TextColumn::make('created_at')
                     ->label('FECHA DE CREACIÓN')
                     ->date('d/m/Y')
@@ -98,7 +100,8 @@ class StateResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\CitiesRelationManager::class,
+            RelationManagers\EmployeesRelationManager::class,
         ];
     }
     

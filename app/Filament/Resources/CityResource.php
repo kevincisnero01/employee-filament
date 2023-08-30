@@ -71,16 +71,21 @@ class CityResource extends Resource
                     ->label('ID')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
-                ,TextColumn::make('state.name')
-                    ->label('ESTADOS')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable()    
                 ,TextColumn::make('name')
                     ->label('NOMBRE')
                     ->sortable()
                     ->toggleable()
                     ->searchable()
+                ,TextColumn::make('state.name')
+                    ->label('ESTADO')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()    
+                ,TextColumn::make('state.country.name')
+                    ->label('PAIS')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()                
                 ,TextColumn::make('created_at')
                     ->label('FECHA DE CREACIÓN')
                     ->date('d/m/Y')
@@ -105,7 +110,7 @@ class CityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\EmployeesRelationManager::class,
         ];
     }
     
