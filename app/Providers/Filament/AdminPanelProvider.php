@@ -24,6 +24,7 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use BezhanSalleh\FilamentLanguageSwitch\FilamentLanguageSwitchPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -61,7 +62,11 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class, 
             ])
-            //Otras Configuraciones
+            //==========Configuraciones de Plugins==========
+            ->plugins([
+                FilamentLanguageSwitchPlugin::make()
+            ])
+            //==========Otras Configuraciones==========
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
