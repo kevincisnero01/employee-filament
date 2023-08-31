@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\EmployeeResource\Widgets\EmployeeStatsOverview;
 use Filament\Pages;
 use Filament\Panel;
 use App\Models\State;
@@ -69,8 +70,7 @@ class AdminPanelProvider extends PanelProvider
             //==========Otras Configuraciones==========
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                EmployeeStatsOverview::class
             ])
             ->middleware([
                 EncryptCookies::class,

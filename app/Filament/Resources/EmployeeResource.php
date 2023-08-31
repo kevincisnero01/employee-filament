@@ -31,6 +31,7 @@ use App\Filament\Resources\EmployeeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
+use App\Filament\Resources\EmployeeResource\Widgets\EmployeeStatsOverview;
 
 class EmployeeResource extends Resource
 {
@@ -147,6 +148,11 @@ class EmployeeResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->toggleable()
+                ,TextColumn::make('country.name')
+                    ->label('PAIS')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()
                 ,TextColumn::make('date_hired')
                     ->label('CONTRATADO')
                     ->date('d/m/Y')
@@ -180,7 +186,14 @@ class EmployeeResource extends Resource
             //
         ];
     }
-    
+
+    public static function getWidgets(): array
+    {
+        return [
+            EmployeeStatsOverview::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
