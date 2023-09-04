@@ -7,6 +7,7 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Spatie\Permission\Models\Permission;
@@ -37,14 +38,20 @@ class PermissionResource extends Resource
     }
 
     public static function form(Form $form): Form
-    {
+    {   
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Nombre de Rol')
+                    ->label('Nombre del Permiso')
                     ->required()
                     ->unique()
-                    ->maxLength(50)
+                    ->maxLength(50)    
+                    ->unique(ignoreRecord: true)   
+                ,Select::make('roles')
+                    ->label('Roles Asociados')
+                    ->multiple()
+                    ->relationship(name: 'roles', titleAttribute: 'name')
+                    ->preload()
             ]);
     }
 
@@ -60,6 +67,9 @@ class PermissionResource extends Resource
                     ->label('NOMBRE DE PERMISO')
                     ->sortable()
                     ->searchable()
+                    ->toggleable()
+                ,TextColumn::make('roles.name')
+                    ->label('ROLES ASOCIADOS')
                     ->toggleable()
                 ,TextColumn::make('created_at')
                     ->label('FECHA DE CREACIÓN')
@@ -92,4 +102,6 @@ class PermissionResource extends Resource
             'index' => Pages\ManagePermissions::route('/'),
         ];
     }    
+
+    
 }

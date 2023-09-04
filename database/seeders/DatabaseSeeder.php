@@ -20,14 +20,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'developer@gmail.com',
         ]);
 
-        $role = Role::create(['name' => 'Administrator']);
+        $role = Role::create(['name' => 'Administrador']);
         $user->assignRole($role);
 
 
-        \App\Models\User::factory()->create([
+        $user2 = User::factory()->create([
             'name' => 'User Test',
             'email' => 'test@gmail.com',
         ]);
+
+        $role2 = Role::create(['name' => 'Empleado']);
+        $user2->assignRole($role2);
 
         \App\Models\Country::factory(12)->create();
 

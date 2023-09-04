@@ -3,11 +3,12 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
-use Spatie\Permission\Models\Role;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Spatie\Permission\Models\Role;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,7 +36,7 @@ class RoleResource extends Resource
     {
         return static::getModel()::count();
     }
-    
+
     
     public static function form(Form $form): Form
     {
@@ -45,6 +46,12 @@ class RoleResource extends Resource
                     ->label('Nombre de Rol')
                     ->required()
                     ->maxLength(50)
+                    ->unique(ignoreRecord: true)
+                ,Select::make('permissions')
+                    ->label('Permisos Asociados')
+                    ->multiple()
+                    ->relationship(name: 'permissions', titleAttribute: 'name')
+                    ->preload()
             ]);
     }
 
@@ -61,6 +68,9 @@ class RoleResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->toggleable()
+                ,TextColumn::make('permissions_count')
+                    ->label('PERMISOS')
+                    ->counts('permissions')
                 ,TextColumn::make('created_at')
                     ->label('FECHA DE CREACIÓN')
                     ->date('d/m/Y')
