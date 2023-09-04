@@ -60,7 +60,7 @@ class UserResource extends Resource
                     ->maxLength(50)
                     ->same('passwordConfirmation')
                     ->dehydrated(fn ($state) => filled ($state))
-                    ->dehydrateStateUsing(fn ($state) => Hash::make('$state'))
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                 ,TextInput::make('passwordConfirmation')
                     ->label('Contraseña')
                     ->password()

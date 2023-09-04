@@ -11,15 +11,15 @@ class EmployeeStatsOverview extends BaseWidget
     protected function getStats(): array
     {   
         $countries = Country::all()->count();
-        $country1 = Country::where('name','Germany')->withCount('employees')->first();
-        $country2 = Country::where('name','Denmark')->withCount('employees')->first();
-        $country3 = Country::where('name','Nauru')->withCount('employees')->first();
+        $country1 = Country::find(1001);
+        $country2 = Country::find(1002);
+        $country3 = Country::find(1003);
 
         return [
             Stat::make('Todos los Empleados', $countries),
-            Stat::make($country1->name.' Empleados',$country1->employees_count),
-            Stat::make($country2->name.' Empleados',$country2->employees_count),
-            Stat::make($country3->name.' Empleados',$country3->employees_count),
+            Stat::make($country1?->name.' Empleados', $country1?->employees->count()),
+            Stat::make($country2?->name.' Empleados', $country2?->employees->count()),
+            Stat::make($country3?->name.' Empleados', $country3?->employees->count()),
         ];
     }
 }
