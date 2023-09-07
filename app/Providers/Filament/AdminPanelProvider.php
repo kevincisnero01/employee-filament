@@ -39,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->registration()
             ->profile() //mostrar la edicion del perfil
             ->userMenuItems([ //editar el menu derecho de usuarios
-                'profile' => MenuItem::make()->label('Perfil'),
+                'profile' => MenuItem::make()->label(fn () => auth()->user()->getRoleNames()->first()),
                 'logout' => MenuItem::make()->label('Cerrar Sesión'),
             ])
             
