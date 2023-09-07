@@ -9,6 +9,8 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Resources\Pages\Page;
+use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +18,6 @@ use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
-use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -52,6 +53,10 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(50)
+                ,Select::make('roles')
+                    ->label('Roles de Usuario')
+                    ->relationship(name: 'roles', titleAttribute: 'name')
+                    ->preload()
                 ,TextInput::make('password')
                     ->label('Contraseña')
                     ->password()
@@ -86,6 +91,11 @@ class UserResource extends Resource
                     ->toggleable()
                 ,TextColumn::make('email')
                     ->label('Correo')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable()
+                ,TextColumn::make('roles.name')
+                    ->label('Rol')
                     ->sortable()
                     ->searchable()
                     ->toggleable()
