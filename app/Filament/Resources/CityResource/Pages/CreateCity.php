@@ -23,4 +23,5 @@ class CreateCity extends CreateRecord
             ->title('Ciudad Creado')
             ->body('La ciudad fue registrada con exito.');
     }
+
 }
